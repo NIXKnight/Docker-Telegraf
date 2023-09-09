@@ -1,4 +1,4 @@
-FROM telegraf:1.25.2
+FROM telegraf:1.27.4
 
 ARG DEBIAN_FRONTEND noninteractive
 
