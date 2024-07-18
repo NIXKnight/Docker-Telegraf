@@ -12,6 +12,6 @@ RUN set -eux; \
   } | tee /etc/apt/sources.list; \
   apt-get update; \
   apt-get -y dist-upgrade; \
-  apt-get install -y --no-install-recommends zfsutils-linux smartmontools nvme-cli; \
+  apt-get install -y --no-install-recommends iputils-ping zfsutils-linux smartmontools nvme-cli; \
   apt-get clean all; \
   rm -r /var/lib/apt/lists /var/cache/apt/archives
