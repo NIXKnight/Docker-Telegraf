@@ -2,6 +2,9 @@ FROM telegraf:1.31.1
 
 ARG DEBIAN_FRONTEND noninteractive
 
+ENV VIRTUAL_ENV="/opt/deye-controller"
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
+
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends lsb-release; \
@@ -12,6 +15,10 @@ RUN set -eux; \
   } | tee /etc/apt/sources.list; \
   apt-get update; \
   apt-get -y dist-upgrade; \
-  apt-get install -y --no-install-recommends iputils-ping zfsutils-linux smartmontools nvme-cli; \
+  apt-get install -y --no-install-recommends iputils-ping zfsutils-linux smartmontools nvme-cli jq python-is-python3 python3-pip python3-venv; \
   apt-get clean all; \
   rm -r /var/lib/apt/lists /var/cache/apt/archives
+
+RUN set -eux; \
+    python -m venv "${VIRTUAL_ENV}"; \
+    pip install deye-controller
