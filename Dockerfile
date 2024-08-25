@@ -17,7 +17,9 @@ RUN set -eux; \
   apt-get -y dist-upgrade; \
   apt-get install -y --no-install-recommends iputils-ping zfsutils-linux smartmontools nvme-cli socat jq python-is-python3 python3-pip python3-venv; \
   apt-get clean all; \
-  rm -r /var/lib/apt/lists /var/cache/apt/archives
+  rm -r /var/lib/apt/lists /var/cache/apt/archives; \
+  mkdir -p /usr/local/run/telegraf_unix_sockets; \
+  chown -R telegraf:telegraf /usr/local/run/telegraf_unix_sockets
 
 RUN set -eux; \
     python -m venv "${VIRTUAL_ENV}"; \
