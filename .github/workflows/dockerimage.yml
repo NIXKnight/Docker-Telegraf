@@ -16,9 +16,15 @@ jobs:
           username: "${{ secrets.DOCKER_HUB_USERNAME }}"
           password: "${{ secrets.DOCKER_HUB_TOKEN }}"
 
+      - name: Set Short Git Commit SHA
+        id: vars
+        run: |
+          SHORT_SHA=$(git rev-parse --short ${{ github.sha }})
+          echo "COMMIT_SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v3.2.0
         with:
           context: .
           push: true
-          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/telegraf:1.31.3"
+          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/telegraf:1.31.3-${{ env.COMMIT_SHORT_SHA }}"
