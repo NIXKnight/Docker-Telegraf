@@ -15,7 +15,7 @@ RUN set -eux; \
   } | tee /etc/apt/sources.list; \
   apt-get update; \
   apt-get -y dist-upgrade; \
-  apt-get install -y --no-install-recommends iputils-ping zfsutils-linux smartmontools nvme-cli jq python-is-python3 python3-pip python3-venv; \
+  apt-get install -y --no-install-recommends iputils-ping zfsutils-linux smartmontools nvme-cli socat jq python-is-python3 python3-pip python3-venv; \
   apt-get clean all; \
   rm -r /var/lib/apt/lists /var/cache/apt/archives
 
