@@ -1,8 +1,8 @@
-FROM telegraf:1.31.3
+FROM telegraf:1.39.1
 
 ARG DEBIAN_FRONTEND noninteractive
 
-ENV VIRTUAL_ENV="/opt/deye-controller"
+ENV VIRTUAL_ENV="/opt/venv"
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 RUN set -eux; \
@@ -21,6 +21,11 @@ RUN set -eux; \
   mkdir -p /usr/local/run/telegraf_unix_sockets; \
   chown -R telegraf:telegraf /usr/local/run/telegraf_unix_sockets
 
+# This venv exists solely for the production poller script (get-deye-data.py) and
+# pins its one direct dependency, pysolarmanv5, to 3.0.6. The script relies on the
+# sync PySolarmanV5 API (eager socket connect in __init__; kwargs
+# port/mb_slave_id/socket_timeout). pysolarmanv5 pulls umodbus (and pyserial via
+# umodbus) itself, so no other pins are needed.
 RUN set -eux; \
     python -m venv "${VIRTUAL_ENV}"; \
-    pip install deye-controller
+    pip install --no-cache-dir pysolarmanv5==3.0.6

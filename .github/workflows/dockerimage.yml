@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/telegraf:1.31.3-${{ env.COMMIT_SHORT_SHA }}"
+          tags: "${{ secrets.DOCKER_HUB_USERNAME }}/telegraf:1.39.1-${{ env.COMMIT_SHORT_SHA }}"
